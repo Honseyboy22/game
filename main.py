@@ -35,14 +35,14 @@ def player_movement():
 
 def update_enemy(enemy):
     if enemy.colliderect(obstacle):
-        if obstacle.right > enemy.left:
-            enemy.left = obstacle.right + 0.5
-        if obstacle.left > enemy.right:
-            enemy.right = obstacle.left - 0.5
-        if obstacle.top < enemy.bottom:
+        if obstacle.top < enemy.bottom and enemy.y < obstacle.y:
             enemy.bottom = obstacle.top - 0.5
-        if obstacle.bottom > enemy.top:
+        elif obstacle.bottom < enemy.top and enemy.y > obstacle.y:
             enemy.top = obstacle.bottom + 0.5
+        elif obstacle.right > enemy.left and enemy.x > obstacle.x:
+            enemy.left = obstacle.right + 0.5
+        elif obstacle.left < enemy.right and enemy.x < obstacle.x:
+            enemy.right = obstacle.left - 0.5
 
     elif enemy.x - 50 < peco.x < enemy.x + 50 and \
             enemy.y - 100 < peco.y < enemy.y + 100:
