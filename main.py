@@ -37,6 +37,12 @@ def update_enemy(enemy):
     if enemy.colliderect(obstacle):
         if obstacle.right > enemy.left:
             enemy.left = obstacle.right + 0.5
+        if obstacle.left > enemy.right:
+            enemy.right = obstacle.left - 0.5
+        if obstacle.top < enemy.bottom:
+            enemy.bottom = obstacle.top - 0.5
+        if obstacle.bottom > enemy.top:
+            enemy.top = obstacle.bottom + 0.5
 
     elif enemy.x - 50 < peco.x < enemy.x + 50 and \
             enemy.y - 100 < peco.y < enemy.y + 100:
