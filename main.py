@@ -8,13 +8,14 @@ TITLE = 'my game'
 peco = Actor("front")
 background = Actor("background")
 enemies = [Rect((300, 50), (15, 30)), Rect((300, 100), (15, 30))]
-
+obstacle = Rect((150, 100), (40, 40))
 
 def draw():
     background.draw()
     peco.draw()
     for enemy in enemies:
         screen.draw.filled_rect(enemy, (200, 0, 0))
+    screen.draw.filled_rect(obstacle, (0, 200, 0))
 
 
 def player_movement():
@@ -33,7 +34,11 @@ def player_movement():
 
 
 def update_enemy(enemy):
-    if enemy.x - 50 < peco.x < enemy.x + 50 and \
+    if enemy.colliderect(obstacle):
+        if obstacle.right > enemy.left:
+            enemy.left = obstacle.right + 0.5
+
+    elif enemy.x - 50 < peco.x < enemy.x + 50 and \
             enemy.y - 100 < peco.y < enemy.y + 100:
         if enemy.x < peco.x:
             enemy.x += 1
