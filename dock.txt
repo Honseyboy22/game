@@ -1,3 +1,6 @@
+git pull | git add . | git commit -m "changee" | git push
+
+
 1. Get github
 2. Assests(Enemy, hero, special effects)
 3. Build main hero movements
