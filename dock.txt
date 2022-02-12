@@ -1,0 +1,4 @@
+1. Get github
+2. Assests(Enemy, hero, special effects)
+3. Build main hero movements
+(4) learn git
