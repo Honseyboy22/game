@@ -3,4 +3,5 @@ git pull | git add . | git commit -m "changee" | git push
 
 
 - Assests(Enemy, special effects, menu)
-
+- Fix the collision
+- think of other mechanics
