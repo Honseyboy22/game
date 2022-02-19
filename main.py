@@ -1,5 +1,6 @@
 import pgzrun
-import pygame
+from random import randint
+
 
 WIDTH = 600
 HEIGHT = 500
@@ -70,6 +71,10 @@ def update_enemy(enemy):
             zombie.y -= 1
     else:
         zombie.x -= 0.5
+        if zombie.x < -10:
+            zombie.x = WIDTH + 5
+            zombie.y = randint(10, HEIGHT - 10)
+
     return zombie
 
 def on_mouse_down(pos):
