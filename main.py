@@ -1,4 +1,5 @@
 import pgzrun
+import pygame
 
 WIDTH = 600
 HEIGHT = 500
@@ -10,17 +11,17 @@ background = Actor("background")
 zombie = Actor("zombie_side")
 jellotrap = Actor("jelo_trap")
 menu = Actor("title_screen")
-zombies = []
+zombie = Actor('zombie_front', (200, 300))
 chest = Actor("chest", (150, 100), (40, 40))
 
 def draw():
     background.draw()
     peco.draw()
-    enemy.draw()
     jellotrap.draw()
+    chest.draw()
 
-    for zombie in zombies:
-        zombie.draw()
+    # for zombie in zombies:
+    zombie.draw()
 
 
 def player_movement():
@@ -39,7 +40,7 @@ def player_movement():
 
 
 def update_enemy(enemy):
-    if enemy.colliderect(obstacle):
+    if enemy.colliderect(chest):
         if chest.top < zombie.bottom and zombie.y < chest.y:
             zombie.bottom = chest.top - 0.5
         elif chest.bottom < zombie.top and zombie.y > chest.y:
@@ -68,7 +69,7 @@ def update(dt):
     global zombies
     player_movement()
     for zombie in zombies:
-        zombies = update_enemy(zombie )
+        zombies = update_enemy(zombie)
 
 
 pgzrun.go()
