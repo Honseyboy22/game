@@ -9,11 +9,9 @@ TITLE = 'Pecos quest'
 
 peco = Actor("front")
 background = Actor("background")
-menu_background = Actor('title screen ss')
-btn = Actor('start', (300, 300))
-zombie = Actor("zombie_side")
+menu_background = Actor('menu_screen')
+btn = Actor('start_btn', (300, 300))
 jellotrap = Actor("jelo_trap")
-menu = Actor("title_screen")
 zombie = Actor('zombie_front', (200, 300))
 chest = Actor("chest", (150, 100), (40, 40))
 
@@ -63,14 +61,19 @@ def update_enemy(enemy):
             zombie.y - 100 < peco.y < zombie.y + 100:
         if zombie.x < peco.x:
             zombie.x += 1
+            zombie.image = 'zombie_right'
         else:
             zombie.x -= 1
+            zombie.image = 'zombie_left'
         if zombie.y < peco.y:
             zombie.y += 1
+            zombie.image = 'zombie_front'
         else:
             zombie.y -= 1
+            zombie.image = 'zombie_back'
     else:
         zombie.x -= 0.5
+        zombie.image = 'zombie_left'
         if zombie.x < -10:
             zombie.x = WIDTH + 5
             zombie.y = randint(10, HEIGHT - 10)
