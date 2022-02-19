@@ -6,9 +6,11 @@ FPS = 60
 TITLE = 'my game'
 
 peco = Actor("front")
-background = Actor("background")
-enemies = [Rect((300, 50), (15, 30)), Rect((300, 100), (15, 30))]
-obstacle = Rect((150, 100), (40, 40))
+background = Actor("new background")
+enemy = Actor("zombie_side")
+menu = Actor("title screen 2")
+enemies = [enemy((300, 50), (15, 30)), enemy((300, 100), (15, 30))]
+obstacle = Actor("chest", (150, 100), (40, 40))
 
 def draw():
     background.draw()
