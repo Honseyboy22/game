@@ -72,6 +72,10 @@ def update_enemy(enemy):
         zombie.x -= 0.5
     return zombie
 
+def on_mouse_down(pos):
+    global game_mode
+    if game_mode == 'menu' and btn.collidepoint(pos):
+        game_mode = 'game'
 
 def update(dt):
     global zombie
