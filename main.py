@@ -3,20 +3,23 @@ import pgzrun
 WIDTH = 600
 HEIGHT = 500
 FPS = 60
-TITLE = 'my game'
+TITLE = 'Pecos quest'
 
 peco = Actor("front")
 background = Actor("new background")
-enemy = Actor("zombie_side")
+zombie = Actor("zombie_side")
+jellotrap = Actor("jelo-trap")
 menu = Actor("title screen 2")
-enemies = [enemy((300, 50), (15, 30)), enemy((300, 100), (15, 30))]
-obstacle = Actor("chest", (150, 100), (40, 40))
+zombies = []
+chest = Actor("chest", (150, 100), (40, 40))
 
 def draw():
     background.draw()
     peco.draw()
-    for enemy in enemies:
-        screen.draw.filled_rect(enemy, (200, 0, 0))
+    enemy.draw()
+    jellotrap.draw()
+
+    for zombie in zombies:
     screen.draw.filled_rect(obstacle, (0, 200, 0))
 
 
@@ -37,35 +40,35 @@ def player_movement():
 
 def update_enemy(enemy):
     if enemy.colliderect(obstacle):
-        if obstacle.top < enemy.bottom and enemy.y < obstacle.y:
-            enemy.bottom = obstacle.top - 0.5
-        elif obstacle.bottom < enemy.top and enemy.y > obstacle.y:
-            enemy.top = obstacle.bottom + 0.5
-        elif obstacle.right > enemy.left and enemy.x > obstacle.x:
-            enemy.left = obstacle.right + 0.5
-        elif obstacle.left < enemy.right and enemy.x < obstacle.x:
-            enemy.right = obstacle.left - 0.5
+        if chest.top < zombie.bottom and zombie.y < chest.y:
+            zombie.bottom = chest.top - 0.5
+        elif chest.bottom < zombie.top and zombie.y > chest.y:
+            zombie.top = chest.bottom + 0.5
+        elif chest.right > zombie.left and zombie.x > chest.x:
+            zombie.left = chest.right + 0.5
+        elif chest.left < zombie.right and zombie.x < chest.x:
+            zombie.right = chest.left - 0.5
 
-    elif enemy.x - 50 < peco.x < enemy.x + 50 and \
-            enemy.y - 100 < peco.y < enemy.y + 100:
-        if enemy.x < peco.x:
-            enemy.x += 1
+    elif zombie.x - 50 < peco.x < zombie.x + 50 and \
+            zombie.y - 100 < peco.y < zombie.y + 100:
+        if zombie.x < peco.x:
+            zombie.x += 1
         else:
-            enemy.x -= 1
-        if enemy.y < peco.y:
-            enemy.y += 1
+            zombie.x -= 1
+        if zombie.y < peco.y:
+            zombie.y += 1
         else:
-            enemy.y -= 1
+            zombie.y -= 1
     else:
-        enemy.x -= 0.5
-    return enemy
+        zombie.x -= 0.5
+    return zombie
 
 
 def update(dt):
-    global enemies
+    global zombies
     player_movement()
-    for enemy in enemies:
-        enemy = update_enemy(enemy)
+    for zombie in zombies:
+        zombies = update_enemy(zombie )
 
 
 pgzrun.go()
