@@ -8,20 +8,28 @@ TITLE = 'Pecos quest'
 
 peco = Actor("front")
 background = Actor("background")
+menu_background = Actor('title screen ss')
+btn = Actor('start', (300, 300))
 zombie = Actor("zombie_side")
 jellotrap = Actor("jelo_trap")
 menu = Actor("title_screen")
 zombie = Actor('zombie_front', (200, 300))
 chest = Actor("chest", (150, 100), (40, 40))
 
-def draw():
-    background.draw()
-    peco.draw()
-    jellotrap.draw()
-    chest.draw()
+game_mode = 'menu'
 
-    # for zombie in zombies:
-    zombie.draw()
+def draw():
+    if game_mode == 'menu':
+        menu_background.draw()
+        btn.draw()
+
+    if game_mode == 'game':
+        background.draw()
+        peco.draw()
+        jellotrap.draw()
+        chest.draw()
+        # for zombie in zombies:
+        zombie.draw()
 
 
 def player_movement():
@@ -66,10 +74,11 @@ def update_enemy(enemy):
 
 
 def update(dt):
-    global zombies
+    global zombie
     player_movement()
-    for zombie in zombies:
-        zombies = update_enemy(zombie)
+    zombie = update_enemy(zombie)
+    # for zombie in zombies:
+    #     zombies = update_enemy(zombie)
 
 
 pgzrun.go()
