@@ -6,10 +6,10 @@ FPS = 60
 TITLE = 'Pecos quest'
 
 peco = Actor("front")
-background = Actor("new background")
+background = Actor("background")
 zombie = Actor("zombie_side")
-jellotrap = Actor("jelo-trap")
-menu = Actor("title screen 2")
+jellotrap = Actor("jelo_trap")
+menu = Actor("title_screen")
 zombies = []
 chest = Actor("chest", (150, 100), (40, 40))
 
@@ -20,7 +20,7 @@ def draw():
     jellotrap.draw()
 
     for zombie in zombies:
-    screen.draw.filled_rect(obstacle, (0, 200, 0))
+        zombie.draw()
 
 
 def player_movement():
