@@ -15,6 +15,7 @@ jellotrap = Actor("jelo_trap")
 zombie = Actor('zombie_front', (200, 300))
 chest = Actor("chest", (150, 100), (40, 40))
 game_mode = 'menu'
+<<<<<<< HEAD
 
 
 def draw():
@@ -29,6 +30,9 @@ def draw():
         chest.draw()
         # for zombie in zombies:
         zombie.draw()
+=======
+    zombie.draw()
+>>>>>>> 6a7923254f8dad46d263facd1671b8696bd3440e
 
 
 def player_movement():
