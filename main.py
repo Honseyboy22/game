@@ -14,9 +14,10 @@ btn = Actor('start_btn', (300, 300))
 jellotrap = Actor("jelo_trap")
 zombie = Actor('zombie_front', (200, 300))
 chest = Actor("chest", (150, 100), (40, 40))
+key = Actor('key', (500, 450))
 game_mode = 'menu'
-<<<<<<< HEAD
 
+print(dir(key))
 
 def draw():
     if game_mode == 'menu':
@@ -30,9 +31,7 @@ def draw():
         chest.draw()
         # for zombie in zombies:
         zombie.draw()
-=======
-    zombie.draw()
->>>>>>> 6a7923254f8dad46d263facd1671b8696bd3440e
+        key.draw()
 
 
 def player_movement():
@@ -90,6 +89,8 @@ def update(dt):
     global zombie
     player_movement()
     zombie = update_enemy(zombie)
+    if peco.colliderect(key):
+        pass
     # for zombie in zombies:
     #     zombies = update_enemy(zombie)
 
