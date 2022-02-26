@@ -10,19 +10,28 @@ TITLE = 'Pecos quest'
 peco = Actor("front")
 background = Actor("background")
 menu_background = Actor('menu_screen')
+game_over_screen = Actor('game_over')
 btn = Actor('start_btn', (300, 300))
 jellotrap = Actor("jelo_trap")
-zombie = Actor('zombie_front', (200, 300))
+zombies = []
+for i in range(8):
+    zombie = Actor('zombie_front', (randint(300, 650), randint(50, 450)))
+    zombies.append(zombie)
+
 chest = Actor("chest", (150, 100), (40, 40))
 key = Actor('key', (500, 450))
+key_icon = Actor('key', (500, 20))
+key_icon.amount = 0
 game_mode = 'menu'
 
-print(dir(key))
 
 def draw():
-    if game_mode == 'menu':
+    if game_mode == 'menu' or game_mode == 'win':
         menu_background.draw()
         btn.draw()
+
+    if game_mode == 'game over':
+        game_over_screen.draw()
 
     if game_mode == 'game':
         background.draw()
@@ -30,11 +39,17 @@ def draw():
         jellotrap.draw()
         chest.draw()
         # for zombie in zombies:
-        zombie.draw()
-        key.draw()
+        for zombie in zombies:
+            zombie.draw()
+        if key_icon.amount == 0:
+            key.draw()
+        key_icon.draw()
+        screen.draw.text(str(key_icon.amount), center=(520, 21), color='white')
 
 
 def player_movement():
+    global game_mode
+    peco.prev_pos = peco.pos
     if keyboard.left and peco.x > 20:
         peco.x -= 3
         peco.image = 'left'
@@ -47,9 +62,13 @@ def player_movement():
     if keyboard.down:
         peco.y += 3
         peco.image = "front"
+    if peco.colliderect(chest):
+        peco.pos = peco.prev_pos
+        if key_icon.amount != 0:
+            game_mode = 'win'
 
 
-def update_enemy(enemy):
+def update_enemy(zombie):
     zombie.prev_pos = zombie.pos
 
     if zombie.x - 100 < peco.x < zombie.x + 100 and \
@@ -73,7 +92,7 @@ def update_enemy(enemy):
             zombie.x = WIDTH + 5
             zombie.y = randint(10, HEIGHT - 10)
 
-    if enemy.colliderect(chest):
+    if zombie.colliderect(chest):
         zombie.pos = zombie.prev_pos
 
     return zombie
@@ -86,13 +105,15 @@ def on_mouse_down(pos):
 
 
 def update(dt):
-    global zombie
+    global zombie, game_mode
     player_movement()
-    zombie = update_enemy(zombie)
-    if peco.colliderect(key):
-        pass
-    # for zombie in zombies:
-    #     zombies = update_enemy(zombie)
+    for i in range(len(zombies)):
+        zombies[i] = update_enemy(zombies[i])
+
+    if peco.colliderect(key) and key_icon.amount == 0:
+        key_icon.amount += 1
+    if peco.collidelist(zombies) != -1:
+        game_mode = 'game over'
 
 
 pgzrun.go()

@@ -6,13 +6,13 @@ Sergey
 - Add menu at the top with numbers
 
 Later
-- add the mechanics of dropping jelo and droping bomb
 
 Max
 
 MUST
 - Key drawing
 - Explosion animation
+- add the mechanics of dropping jelo and droping bomb
 
 
 - Some generec drawings of obatacles
