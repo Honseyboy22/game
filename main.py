@@ -1,42 +1,21 @@
 import pgzrun
 from random import randint
+from settings import WIDTH, HEIGHT, TITLE, FPS
+from actors import peco, bg, menu_bg, go_bg, zombies, btn, chest, key_icon, key
 
-
-WIDTH = 600
-HEIGHT = 500
-FPS = 60
-TITLE = 'Pecos quest'
-
-peco = Actor("front")
-background = Actor("background")
-menu_background = Actor('menu_screen')
-game_over_screen = Actor('game_over')
-btn = Actor('start_btn', (300, 300))
-jellotrap = Actor("jelo_trap")
-zombies = []
-for i in range(8):
-    zombie = Actor('zombie_front', (randint(300, 650), randint(50, 450)))
-    zombies.append(zombie)
-
-chest = Actor("chest", (150, 100), (40, 40))
-key = Actor('key', (500, 450))
-key_icon = Actor('key', (500, 20))
-key_icon.amount = 0
 game_mode = 'menu'
-
 
 def draw():
     if game_mode == 'menu' or game_mode == 'win':
-        menu_background.draw()
+        menu_bg.draw()
         btn.draw()
 
     if game_mode == 'game over':
-        game_over_screen.draw()
+        go_bg.draw()
 
     if game_mode == 'game':
-        background.draw()
+        bg.draw()
         peco.draw()
-        jellotrap.draw()
         chest.draw()
         # for zombie in zombies:
         for zombie in zombies:
@@ -96,6 +75,11 @@ def update_enemy(zombie):
         zombie.pos = zombie.prev_pos
 
     return zombie
+
+def on_key_down(key):
+    if key == keys.SPACE:
+        pass
+
 
 
 def on_mouse_down(pos):
