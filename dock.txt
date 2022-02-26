@@ -3,20 +3,19 @@ git pull | git add . | git commit -m "changee" | git push
 
 
 Sergey
-- Fix the collision
-- add the mechanics of dropping jelo and droping bomb
+- Add menu at the top with numbers
 
+Later
+- add the mechanics of dropping jelo and droping bomb
 
 Max
 
 MUST
-- Resize
 - Key drawing
 - Explosion animation
 
-- Game Over screen
+
 - Some generec drawings of obatacles
-- Add menu at the top with numbers
 
 OPTIONAL
 - Think of the level desing for other levels
