@@ -16,19 +16,7 @@ zombie = Actor('zombie_front', (200, 300))
 chest = Actor("chest", (150, 100), (40, 40))
 
 game_mode = 'menu'
-
-def draw():
-    if game_mode == 'menu':
-        menu_background.draw()
-        btn.draw()
-
-    if game_mode == 'game':
-        background.draw()
-        peco.draw()
-        jellotrap.draw()
-        chest.draw()
-        # for zombie in zombies:
-        zombie.draw()
+    zombie.draw()
 
 
 def player_movement():
