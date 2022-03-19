@@ -1,9 +1,13 @@
 import pgzrun
 from random import randint
-from settings import WIDTH, HEIGHT, TITLE, FPS
-from actors import peco, bg, menu_bg, go_bg, zombies, btn, chest, key_icon, key, jello_icon
+from settings import WIDTH, HEIGHT
+from actors import peco, bg, menu_bg, go_bg, zombies, btn, \
+    chest, key_icon, key, jello_icon, bomb_icon
 
 game_mode = 'menu'
+
+jellos = []
+bombs = []
 
 def draw():
     if game_mode == 'menu' or game_mode == 'win':
@@ -23,11 +27,18 @@ def draw():
         if key_icon.amount == 0:
             key.draw()
         key_icon.draw()
+        jello_icon.draw()
+        bomb_icon.draw()
+        screen.draw.text(str(jello_icon.amount),
+                         center=(470, 21), color='white')
         screen.draw.text(str(key_icon.amount), center=(520, 21), color='white')
-        if jello_icon.amount == 0:
-            jello_icon.draw()
-        screen.draw.text(str(key_icon.amount), center=(520, 21), color='white')
-            
+        screen.draw.text(str(bomb_icon.amount),
+                         center=(570, 21), color='white')
+        for jello in jellos:
+            jello.draw()
+        for bomb in bombs:
+            bomb.draw()
+
 
 def player_movement():
     global game_mode
@@ -50,39 +61,55 @@ def player_movement():
             game_mode = 'win'
 
 
-def update_enemy(zombie):
-    zombie.prev_pos = zombie.pos
+def update_enemy(zombie, jellos):
+    stop = False
+    for jello in jellos:
+        if zombie.colliderect(jello):
+            stop = True
 
-    if zombie.x - 100 < peco.x < zombie.x + 100 and \
-            zombie.y - 150 < peco.y < zombie.y + 150:
-        if zombie.x < peco.x:
-            zombie.x += 0.5
-            zombie.image = 'zombie_right'
+    zombie.prev_pos = zombie.pos
+    if not stop:
+        if zombie.x - 100 < peco.x < zombie.x + 100 and \
+                zombie.y - 150 < peco.y < zombie.y + 150:
+            if zombie.x < peco.x:
+                zombie.x += 0.5
+                zombie.image = 'zombie_right'
+            else:
+                zombie.x -= 0.5
+                zombie.image = 'zombie_left'
+            if zombie.y < peco.y:
+                zombie.y += 0.5
+                zombie.image = 'zombie_front'
+            else:
+                zombie.y -= 0.5
+                zombie.image = 'zombie_back'
         else:
             zombie.x -= 0.5
             zombie.image = 'zombie_left'
-        if zombie.y < peco.y:
-            zombie.y += 0.5
-            zombie.image = 'zombie_front'
-        else:
-            zombie.y -= 0.5
-            zombie.image = 'zombie_back'
-    else:
-        zombie.x -= 0.5
-        zombie.image = 'zombie_left'
-        if zombie.x < -10:
-            zombie.x = WIDTH + 5
-            zombie.y = randint(10, HEIGHT - 10)
+            if zombie.x < -10:
+                zombie.x = WIDTH + 5
+                zombie.y = randint(10, HEIGHT - 10)
 
-    if zombie.colliderect(chest):
-        zombie.pos = zombie.prev_pos
+        if zombie.colliderect(chest):
+            zombie.pos = zombie.prev_pos
 
     return zombie
 
-def on_key_down(key):
-    if key == keys.SPACE:
-        pass
 
+def on_key_down(key):
+    if key == keys.SPACE and jello_icon.amount > 0:
+        jello = Actor('jelo_trap')
+        jello.pos = peco.pos
+        jello.time = 0
+        jellos.append(jello)
+        jello_icon.amount -= 1
+    if key == keys.LSHIFT and bomb_icon.amount > 0:
+        bomb = Actor('bomb')
+        bomb.pos = peco.pos
+        bomb.time = 0
+        bomb.set = False
+        bombs.append(bomb)
+        bomb_icon.amount -= 1
 
 
 def on_mouse_down(pos):
@@ -95,12 +122,30 @@ def update(dt):
     global zombie, game_mode
     player_movement()
     for i in range(len(zombies)):
-        zombies[i] = update_enemy(zombies[i])
+        zombies[i] = update_enemy(zombies[i], jellos)
 
     if peco.colliderect(key) and key_icon.amount == 0:
         key_icon.amount += 1
     if peco.collidelist(zombies) != -1:
         game_mode = 'game over'
 
+    for jello in jellos:
+        jello.time += dt
+        if jello.time >= 4:
+            jello.pos = (-100, -100)
 
+    for bomb in bombs:
+        bomb.time += dt
+        if bomb.time >= 2 and not bomb.set:
+            bomb.set = True
+            bomb.image = 'explotion_animation1'
+            for zombi in zombies:
+                if bomb.colliderect(zombi):
+                    zombi.x  = WIDTH + 100
+        if bomb.time >= 2 and bomb.set:
+            number = int(bomb.image[-1]) + 1
+            if number <= 8:
+                bomb.image = f'explotion_animation{number}'
+            else:
+                bomb.pos = (-100, -100)
 pgzrun.go()
