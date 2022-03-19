@@ -24,7 +24,10 @@ def draw():
             key.draw()
         key_icon.draw()
         screen.draw.text(str(key_icon.amount), center=(520, 21), color='white')
-
+        if jello_icon.amount == 0:
+            jello_icon.draw()
+        screen.draw.text(str(key_icon.amount), center=(520, 21), color='white')
+            
 
 def player_movement():
     global game_mode
