@@ -12,7 +12,6 @@ for i in range(8):
     zombies.append(zombie)
 
 chest = Actor("chest", (150, 100), (40, 40))
-jellotrap = Actor("jelo_trap")
 jello_icon = Actor('jelo_trap')
 jello_icon.amount = 0
 key = Actor('key', (500, 450))

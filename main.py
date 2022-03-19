@@ -1,7 +1,7 @@
 import pgzrun
 from random import randint
 from settings import WIDTH, HEIGHT, TITLE, FPS
-from actors import peco, bg, menu_bg, go_bg, zombies, btn, chest, key_icon, key
+from actors import peco, bg, menu_bg, go_bg, zombies, btn, chest, key_icon, key, jello_icon
 
 game_mode = 'menu'
 
