@@ -7,11 +7,10 @@ Sergey
 Max
 
 MUST
-- Add menu with bomb and slime
-- resize Bomb and slime
-- Explosion animation MUST
+- resize Bomb and slime for icon
 - Some generec drawings of obatacles MUST
 - Write level design for 2-3-4 lvls
+- Draw shop
 
 OPTIONAL
 - Think of the level desing for other levels
