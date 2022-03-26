@@ -2,19 +2,8 @@ git pull
 git pull | git add . | git commit -m "changee" | git push
 
 Sergey
-- add the mechanics of dropping jelo and droping bomb 5-6 of march
 
 Max
 
-MUST
-- resize Bomb and slime for icon
-- Some generec drawings of obatacles MUST
-- Write level design for 2-3-4 lvls
-- Draw shop
 
-OPTIONAL
-- Think of the level desing for other levels
-
-LEVEL design
-2 lvl:
     

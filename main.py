@@ -120,32 +120,33 @@ def on_mouse_down(pos):
 
 def update(dt):
     global zombie, game_mode
-    player_movement()
-    for i in range(len(zombies)):
-        zombies[i] = update_enemy(zombies[i], jellos)
+    if not (game_mode == 'game_over' or game_mode == 'win'):
+        player_movement()
+        for i in range(len(zombies)):
+            zombies[i] = update_enemy(zombies[i], jellos)
 
-    if peco.colliderect(key) and key_icon.amount == 0:
-        key_icon.amount += 1
-    if peco.collidelist(zombies) != -1:
-        game_mode = 'game over'
+        if peco.colliderect(key) and key_icon.amount == 0:
+            key_icon.amount += 1
+        if peco.collidelist(zombies) != -1:
+            game_mode = 'game over'
 
-    for jello in jellos:
-        jello.time += dt
-        if jello.time >= 4:
-            jello.pos = (-100, -100)
+        for jello in jellos:
+            jello.time += dt
+            if jello.time >= 4:
+                jello.pos = (-100, -100)
 
-    for bomb in bombs:
-        bomb.time += dt
-        if bomb.time >= 2 and not bomb.set:
-            bomb.set = True
-            bomb.image = 'explotion_animation1'
-            for zombi in zombies:
-                if bomb.colliderect(zombi):
-                    zombi.x  = WIDTH + 100
-        if bomb.time >= 2 and bomb.set:
-            number = int(bomb.image[-1]) + 1
-            if number <= 8:
-                bomb.image = f'explotion_animation{number}'
-            else:
-                bomb.pos = (-100, -100)
+        for bomb in bombs:
+            bomb.time += dt
+            if bomb.time >= 2 and not bomb.set:
+                bomb.set = True
+                bomb.image = 'explotion_animation1'
+                for zombi in zombies:
+                    if bomb.colliderect(zombi):
+                        zombi.x  = WIDTH + 100
+            if bomb.time >= 2 and bomb.set:
+                number = int(bomb.image[-1]) + 1
+                if number <= 8:
+                    bomb.image = f'explotion_animation{number}'
+                else:
+                    bomb.pos = (-100, -100)
 pgzrun.go()

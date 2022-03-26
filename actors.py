@@ -7,7 +7,7 @@ menu_bg = Actor('menu_screen')
 go_bg = Actor('game_over')
 btn = Actor('start_btn', (300, 300))
 zombies = []
-for i in range(8):
+for i in range(5):
     zombie = Actor('zombie_front', (randint(300, 650), randint(50, 450)))
     zombies.append(zombie)
 
